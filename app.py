@@ -1,12 +1,18 @@
 from fastapi import FastAPI, Request
 from fastapi.responses import PlainTextResponse
+from dotenv import load_dotenv
 import requests
 import os
 
+
+load_dotenv()
+
 app = FastAPI()
 
-VERIFY_TOKEN = "my_secret_token_1478"
-PAGE_ACCESS_TOKEN = "EAAVOfvpDttcBO6DJZAZC4nJoFeFVyA53woZB5xOqsKhNTQMma1pjDtyXew7Eo5O5gKgqdAeR0j4VF8MZBV0qM7AJ3LK266jWlOeH3pIwNXlWHgW9CNm0wByMinMjG7y63kfGhri7monZBSKboERtz4vaVNGJrplkIuUPKPIy8ZCZBdJZCmFQyx5yhr3FDM1yLn2BUGLXWWaZBjgZDZD" 
+
+VERIFY_TOKEN = os.getenv("VERIFY_TOKEN")
+PAGE_ACCESS_TOKEN = os.getenv("PAGE_ACCESS_TOKEN")
+
 
 # Facebook Webhook Verification
 @app.get("/webhook")
