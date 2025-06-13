@@ -4,17 +4,14 @@ from dotenv import load_dotenv
 import requests
 import os
 
-
+# Load environment variables from .env
 load_dotenv()
 
 app = FastAPI()
 
-
 VERIFY_TOKEN = os.getenv("VERIFY_TOKEN")
 PAGE_ACCESS_TOKEN = os.getenv("PAGE_ACCESS_TOKEN")
 
-
-# Facebook Webhook Verification
 @app.get("/webhook")
 async def verify_token(request: Request):
     params = dict(request.query_params)
@@ -22,7 +19,6 @@ async def verify_token(request: Request):
         return PlainTextResponse(params.get("hub.challenge"))
     return PlainTextResponse("Error: Invalid verification token", status_code=403)
 
-# Handle Incoming Messages
 @app.post("/webhook")
 async def receive_message(request: Request):
     data = await request.json()
